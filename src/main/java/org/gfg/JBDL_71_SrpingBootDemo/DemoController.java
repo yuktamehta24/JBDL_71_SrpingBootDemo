@@ -1,5 +1,7 @@
 package org.gfg.JBDL_71_SrpingBootDemo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -13,10 +15,17 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class DemoController {
 
+    public static Logger LOG = LoggerFactory.getLogger(DemoController.class);
+
     //Path variable
     @GetMapping("/test/{name}")
 //    @ResponseBody
     public Student test(@PathVariable("name") String name) {
+        LOG.info("I am info log");
+        LOG.trace("I am trace log");
+        LOG.warn("I am warn log");
+        LOG.debug("I am debug log");
+        LOG.error("I am error log");
         return new Student(12, "ad");
 //        return "Hello, ".concat(name);
 //        return "<HTML><BODY> Hello</BODY> </HTML>";
