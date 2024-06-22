@@ -3,6 +3,7 @@ package org.gfg.JBDL_71_SrpingBootDemo.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
@@ -10,5 +11,6 @@ import lombok.Setter;
 public class Person {
 
     String name;
+
     Integer id;
 }
