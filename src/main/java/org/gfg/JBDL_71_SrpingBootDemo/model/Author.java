@@ -19,9 +19,11 @@ import lombok.ToString;
 public class Author {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.TABLE, generator = "authorGenerator")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "customGenerator")
 //    @TableGenerator(name = "authorGenerator")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+
+//    @GeneratedValue(strategy = GenerationType.TABLE)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Integer id;
 
     @Column(name = "fName", length = 20)

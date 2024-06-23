@@ -49,15 +49,29 @@ public class PersonRepository implements IPersonRepository {
 
     public Integer createPerson(Person person) {
         try {
+
+            boolean initialautocommit = connection.getAutoCommit();
 //            return connection.createStatement().executeUpdate
 //                    ("insert into person (name, id) values ('"
 //                            + person.getName() + "', " + person.getId() + ");");
+
+            connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection
                     .prepareStatement("insert into person (id, name) values (?, ?)");
             preparedStatement.setInt(1, person.getId());
             preparedStatement.setString(2, person.getName());
-            return preparedStatement.executeUpdate();
+            int result =  preparedStatement.executeUpdate();
+            log.info("result is: {}", result);
+            connection.commit();
+
+            connection.setAutoCommit(initialautocommit);
+            return result;
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             throw new RuntimeException(e);
         }
     }

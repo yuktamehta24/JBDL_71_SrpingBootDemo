@@ -1,5 +1,6 @@
 package org.gfg.JBDL_71_SrpingBootDemo.controller;
 
+import org.gfg.JBDL_71_SrpingBootDemo.exception.CustomException;
 import org.gfg.JBDL_71_SrpingBootDemo.model.Person;
 import org.gfg.JBDL_71_SrpingBootDemo.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class PersonController {
     }
 
     @PostMapping("/person")
-    public Integer createPerson(@RequestBody Person person) {
+    public Integer createPerson(@RequestBody Person person) throws CustomException {
         if (person.getName() == null || person.getId() == null) {
             throw new IllegalArgumentException("Mandatory parameters are null");
         }

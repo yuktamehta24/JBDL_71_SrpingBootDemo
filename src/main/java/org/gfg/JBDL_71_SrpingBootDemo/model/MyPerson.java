@@ -19,19 +19,18 @@ import lombok.ToString;
 public class MyPerson {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.TABLE, generator = "myPersonGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @TableGenerator(name = "myPersonGenerator")
 //
 //    @GeneratedValue(strategy = GenerationType.TABLE, generator = "table-generator")
 //    @TableGenerator(
-//            name = "table-generator",
+//            name = "customGenerator",
 //            initialValue = 9,
 //            allocationSize = 1
 //    )
-//
 //    @GeneratedValue(strategy = GenerationType.TABLE)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    String id;
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    Integer id;
 
     @Column(name = "fName", length = 20)
     String name;

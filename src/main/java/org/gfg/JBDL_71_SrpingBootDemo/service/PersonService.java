@@ -1,6 +1,8 @@
 package org.gfg.JBDL_71_SrpingBootDemo.service;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.gfg.JBDL_71_SrpingBootDemo.exception.CustomException;
 import org.gfg.JBDL_71_SrpingBootDemo.model.MyPerson;
 import org.gfg.JBDL_71_SrpingBootDemo.model.Person;
 import org.gfg.JBDL_71_SrpingBootDemo.repository.IPersonRepository;
@@ -21,7 +23,7 @@ public class PersonService {
     MyPersonRepository myPersonRepository;
 
     @Autowired
-    PersonService(@Qualifier("personRepositorySpringJDBC") IPersonRepository ipersonRepository,
+    PersonService(@Qualifier("personRepository") IPersonRepository ipersonRepository,
                   MyPersonRepository myPersonRepository) {
         this.ipersonRepository = ipersonRepository;
         this.myPersonRepository = myPersonRepository;
@@ -31,13 +33,17 @@ public class PersonService {
         return ipersonRepository.getPersons();
     }
 
-    public Integer createPerson(Person person) {
+    @Transactional(rollbackOn = {CustomException.class})
+    public Integer createPerson(Person person) throws CustomException {
 //        return ipersonRepository.createPerson(person);
 
         MyPerson myPerson = new MyPerson(person.getName());
         MyPerson addedRecord = myPersonRepository.save(myPerson);
-        //findById
-        //findAll
+
+        if (person.getName().equalsIgnoreCase("yukta")) {
+            throw new CustomException("invalid name");
+        }
+
         log.info("added record is: {}", addedRecord);
         return 1;
     }
